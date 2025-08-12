@@ -628,8 +628,13 @@ class WorkoutTimer {
     });
 
     // Tab switching for mobile
-    document.querySelectorAll('.tab-btn').forEach((btn, index) => {
-      btn.addEventListener('click', () => WorkoutTimer.switchTab(index));
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabName = btn.dataset.tab;
+        if (tabName) {
+          WorkoutTimer.switchTab(tabName);
+        }
+      });
     });
 
     // Keyboard shortcuts
@@ -1195,24 +1200,26 @@ class WorkoutTimer {
     }
   }
 
-  static switchTab(tabIndex) {
-    const tabContents = document.querySelectorAll('.tab-content');
+  static switchTab(tabName) {
+    const exerciseTab = document.getElementById('currentExercise');
+    const scheduleTab = document.getElementById('workoutTable');
     const tabButtons = document.querySelectorAll('.tab-btn');
     
-    tabContents.forEach((content, index) => {
-      content.classList.toggle('active', index === tabIndex);
-    });
-    
-    tabButtons.forEach((button, index) => {
-      button.classList.toggle('active', index === tabIndex);
-    });
+    if (tabName === 'exercise') {
+      exerciseTab?.classList.add('active');
+      scheduleTab?.classList.remove('active');
+      tabButtons[0]?.classList.add('active');
+      tabButtons[1]?.classList.remove('active');
+    } else if (tabName === 'schedule') {
+      exerciseTab?.classList.remove('active');
+      scheduleTab?.classList.add('active');
+      tabButtons[0]?.classList.remove('active');
+      tabButtons[1]?.classList.add('active');
+    }
   }
 }
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
   WorkoutTimer.instance = new WorkoutTimer();
-  
-  // Make switchTab globally available for onclick handlers
-  window.switchTab = WorkoutTimer.switchTab;
 });

@@ -743,8 +743,9 @@
       }
       
       .exercise-progress-compact{
-        min-width:80px;
-        gap:2px;
+        min-width:100px;
+        gap:3px;
+        margin:0 auto;
       }
       
       .exercise-progress-label{
@@ -752,7 +753,7 @@
       }
       
       .exercise-progress-bar-compact{
-        width:70px;
+        width:130px;
         height:4px;
       }
       
