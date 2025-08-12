@@ -1,0 +1,274 @@
+{
+  "schema_version": "i18n-v1",
+  "languages": ["it", "en"],
+
+  "ui": {
+    "it": {
+      "title": "Passeggiata della Forza — Week 1",
+      "subtitle": "Routine mattutina veloce: accensione → riscaldamento → potenziamento → stretching",
+      "startBtn": "Inizia",
+      "pauseBtn": "Pausa",
+      "resumeBtn": "Riprendi",
+      "resetBtn": "Reset",
+      "exerciseTab": "Esercizio",
+      "scheduleTab": "Programma",
+      "upNext": "Prossimo:",
+      "readyMessage": "Premi Inizia per cominciare",
+      "readyDescription": "Il tuo allenamento è pronto!",
+      "congratsTitle": "🎉 Congratulazioni!",
+      "congratsSubtitle": "Hai completato la Passeggiata della Forza!",
+      "newWorkoutBtn": "Nuovo Allenamento",
+      "goText": "VIA!",
+      "totalProgress": "Progresso Totale",
+      "currentExercise": "Esercizio Corrente",
+      "tableHeaders": { "time": "Minuto", "block": "Blocco", "exercise": "Esercizio", "duration": "Tempo" }
+    },
+    "en": {
+      "title": "Strength Walk — Week 1",
+      "subtitle": "Quick morning routine: activation → warm-up → strengthening → stretching",
+      "startBtn": "Start",
+      "pauseBtn": "Pause",
+      "resumeBtn": "Resume",
+      "resetBtn": "Reset",
+      "exerciseTab": "Exercise",
+      "scheduleTab": "Schedule",
+      "upNext": "Up next:",
+      "readyMessage": "Press Start to begin",
+      "readyDescription": "Your workout is ready!",
+      "congratsTitle": "🎉 Congratulations!",
+      "congratsSubtitle": "You’ve completed your Strength Walk!",
+      "newWorkoutBtn": "New Workout",
+      "goText": "GO!",
+      "totalProgress": "Total Progress",
+      "currentExercise": "Current Exercise",
+      "tableHeaders": { "time": "Time", "block": "Block", "exercise": "Exercise", "duration": "Duration" }
+    }
+  },
+
+  "blocks": {
+    "it": {
+      "activation": "Accensione",
+      "warmup_standing": "Riscald. in piedi",
+      "warmup_floor": "Riscald. a terra",
+      "strength_standing": "Potenz. in piedi",
+      "strength_floor": "Potenz. a terra",
+      "stretching": "Stretching"
+    },
+    "en": {
+      "activation": "Activation",
+      "warmup_standing": "Standing warm-up",
+      "warmup_floor": "Floor warm-up",
+      "strength_standing": "Standing strength",
+      "strength_floor": "Floor strength",
+      "stretching": "Stretching"
+    }
+  },
+
+  "exercises": {
+    "neck_rot_tilt": {
+      "icon": "🙆",
+      "it": { "name": "Rotazioni + inclinazioni collo", "description": "Muovi delicatamente il collo in tutte le direzioni per risvegliare la muscolatura.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Neck rotations + tilts", "description": "Gently move your neck in all directions to wake up the muscles.", "setup_hint": "Stay standing." }
+    },
+    "shoulder_circ_fw": {
+      "icon": "🔄",
+      "it": { "name": "Circonduzioni spalle (avanti)", "description": "Rotazioni ampie in avanti per mobilizzare le spalle.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Shoulder circles (forward)", "description": "Large forward circles to mobilize the shoulders.", "setup_hint": "Stay standing." }
+    },
+    "shoulder_circ_bw": {
+      "icon": "↩️",
+      "it": { "name": "Circonduzioni spalle (indietro)", "description": "Rotazioni ampie all’indietro per attivare la spalla.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Shoulder circles (backward)", "description": "Large backward circles to activate the shoulders.", "setup_hint": "Stay standing." }
+    },
+    "thoracic_twists": {
+      "icon": "🌀",
+      "it": { "name": "Torsioni toraciche morbide", "description": "Torsioni dolci del busto per attivare la colonna.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Gentle thoracic twists", "description": "Soft torso twists to activate the spine.", "setup_hint": "Stay standing." }
+    },
+    "hip_circles_cw": {
+      "icon": "⭕",
+      "it": { "name": "Circonduzioni anche (orario)", "description": "Rotazioni dell’anca in senso orario per mobilità.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Hip circles (clockwise)", "description": "Clockwise hip rotations for mobility.", "setup_hint": "Stay standing." }
+    },
+    "hip_circles_ccw": {
+      "icon": "🔄",
+      "it": { "name": "Circonduzioni anche (antiorario)", "description": "Rotazioni dell’anca in senso antiorario per mobilità.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Hip circles (counterclockwise)", "description": "Counterclockwise hip rotations for mobility.", "setup_hint": "Stay standing." }
+    },
+    "march_in_place": {
+      "icon": "🚶",
+      "it": { "name": "Marcia sul posto", "description": "Marcia energica per attivare circolazione e caviglie.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "March in place", "description": "Energetic marching to boost circulation and ankles.", "setup_hint": "Stay standing." }
+    },
+    "cat_cow": {
+      "icon": "🐈‍⬛",
+      "it": { "name": "Cat–Cow (mobilizzazione spinale)", "description": "Alterna inarcamento e arrotondamento per mobilizzare la colonna.", "setup_hint": "Vai a terra a quattro appoggi." },
+      "en": { "name": "Cat–Cow (spinal mobilization)", "description": "Alternate arch and round positions to mobilize the spine.", "setup_hint": "Go to the floor on all fours." }
+    },
+
+    "mil_press_bw": {
+      "icon": "💪",
+      "it": { "name": "Military press a corpo libero", "description": "Simula la spinta verticale senza carico per attivare le spalle.", "setup_hint": "Alzati." },
+      "en": { "name": "Bodyweight military press", "description": "Simulate a vertical press to activate shoulders.", "setup_hint": "Stand up." }
+    },
+    "rev_fly_bw": {
+      "icon": "🦅",
+      "it": { "name": "Reverse fly (busto flesso)", "description": "Apertura braccia con busto inclinato per deltoidi posteriori.", "setup_hint": "Rimani in piedi e inclina il busto." },
+      "en": { "name": "Reverse fly (bent-over)", "description": "Arm opens in a hip hinge to target rear delts.", "setup_hint": "Stay standing and hinge forward." }
+    },
+    "wall_pushup": {
+      "icon": "🏠",
+      "it": { "name": "Push-up verticali al muro", "description": "Piegamenti contro il muro per petto e tricipiti.", "setup_hint": "Vai al muro." },
+      "en": { "name": "Wall push-ups", "description": "Vertical push-ups against a wall for chest and triceps.", "setup_hint": "Go to the wall." }
+    },
+    "hip_hinge_bw": {
+      "icon": "🏋️",
+      "it": { "name": "Hip hinge (senza carico)", "description": "Cerniera d’anca controllata per attivare la catena posteriore.", "setup_hint": "Rimani in piedi, libera lo spazio." },
+      "en": { "name": "Hip hinge (no load)", "description": "Controlled hip hinge to engage posterior chain.", "setup_hint": "Stay standing, clear space." }
+    },
+    "squat_bw": {
+      "icon": "⬇️",
+      "it": { "name": "Squat corpo libero", "description": "Squat di riscaldamento per glutei e gambe.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Bodyweight squat", "description": "Warm-up squats for glutes and legs.", "setup_hint": "Stay standing." }
+    },
+    "calf_raise_bw": {
+      "icon": "👠",
+      "it": { "name": "Calf raise", "description": "Sollevamenti sui polpacci per attivare il tricipite surale.", "setup_hint": "Rimani in piedi vicino a un appoggio." },
+      "en": { "name": "Calf raises", "description": "Raise onto toes to activate the calves.", "setup_hint": "Stay standing near support." }
+    },
+
+    "plank_front": {
+      "icon": "📏",
+      "it": { "name": "Plank frontale", "description": "Tenuta isometrica per attivare il core.", "setup_hint": "Abbassati a terra." },
+      "en": { "name": "Front plank", "description": "Isometric hold to activate the core.", "setup_hint": "Go down to the floor." }
+    },
+    "russian_twist_bw": {
+      "icon": "🌪️",
+      "it": { "name": "Russian twist (corpo libero)", "description": "Rotazioni del busto con colonna neutra, arco ridotto.", "setup_hint": "Siediti a terra (cambia posizione)." },
+      "en": { "name": "Russian twist (	bodyweight)", "description": "Torso rotations with neutral spine, small arc.", "setup_hint": "Sit on the floor (change position)." }
+    },
+    "banded_psoas_march": {
+      "icon": "🏃",
+      "it": { "name": "Banded Psoas March (90/90)", "description": "Marcia 90/90 con miniband ai piedi per i flessori d’anca.", "setup_hint": "Prendi la miniband." },
+      "en": { "name": "Banded Psoas March (90/90)", "description": "90/90 march with miniband on feet for hip flexors.", "setup_hint": "Grab the miniband." }
+    },
+    "glute_bridge_bi": {
+      "icon": "🌉",
+      "it": { "name": "Glute bridge (bilaterale)", "description": "Ponte bilaterale per attivare glutei e femorali.", "setup_hint": "Sdraiati supino (cambia posizione)." },
+      "en": { "name": "Glute bridge (bilateral)", "description": "Bilateral bridge to activate glutes and hamstrings.", "setup_hint": "Lie on your back (change position)." }
+    },
+    "sliding_curl_bi": {
+      "icon": "🦵",
+      "it": { "name": "Sliding leg curl (bilaterale)", "description": "Fai scivolare i talloni su dischi/panni per i femorali.", "setup_hint": "Prepara i dischi/panni (cambia posizione)." },
+      "en": { "name": "Sliding leg curl (bilateral)", "description": "Slide heels on discs/towels to load hamstrings.", "setup_hint": "Set sliders/towels under heels (change position)." }
+    },
+    "superman_hold": {
+      "icon": "🦸",
+      "it": { "name": "Superman hold", "description": "Tenuta a pancia in giù per catena posteriore.", "setup_hint": "Sdraiati prono (cambia posizione)." },
+      "en": { "name": "Superman hold", "description": "Prone hold for posterior chain.", "setup_hint": "Lie prone (change position)." }
+    },
+
+    "mil_press_load": {
+      "icon": "🏋️",
+      "it": { "name": "Military press (elastico/manubri)", "description": "Spinta verticale con carico per spalle e tricipiti.", "setup_hint": "Alzati e prendi pesi medi o banda." },
+      "en": { "name": "Military press (band/dumbbells)", "description": "Vertical press with load for shoulders and triceps.", "setup_hint": "Stand up and grab medium weights or band." }
+    },
+    "rev_fly_load": {
+      "icon": "🦋",
+      "it": { "name": "Reverse fly (elastico/manubri)", "description": "Apertura con resistenza per deltoidi posteriori.", "setup_hint": "Prendi pesi leggeri o banda." },
+      "en": { "name": "Reverse fly (band/dumbbells)", "description": "Rear-delt fly with resistance.", "setup_hint": "Grab light weights or band." }
+    },
+    "hip_hinge_load": {
+      "icon": "⚖️",
+      "it": { "name": "Hip hinge (con carico)", "description": "Cerniera d’anca con carico per glutei/femorali.", "setup_hint": "Prendi pesi medi o banda." },
+      "en": { "name": "Hip hinge (loaded)", "description": "Loaded hip hinge for glutes/hamstrings.", "setup_hint": "Grab medium weights or band." }
+    },
+    "squat_load_or_jump": {
+      "icon": "⚡",
+      "it": { "name": "Squat zavorrato o jump squat", "description": "Squat con carico o balzato per potenza gambe.", "setup_hint": "Prendi pesi pesanti (o libera spazio per saltare)." },
+      "en": { "name": "Weighted squat or jump squat", "description": "Loaded or jump squats for leg power.", "setup_hint": "Grab heavy weights (or clear space to jump)." }
+    },
+    "calf_raise_load": {
+      "icon": "🏔️",
+      "it": { "name": "Calf raise su gradino (con peso)", "description": "Polpacci su gradino con ROM completo.", "setup_hint": "Prendi manubri e un gradino." },
+      "en": { "name": "Calf raises on step (with weight)", "description": "Calf raises on a step with full ROM.", "setup_hint": "Grab dumbbells and a step." }
+    },
+
+    "plank_alt": {
+      "icon": "🤸",
+      "it": { "name": "Plank con sollevamento alternato", "description": "Plank con sollevamenti opposti braccio/gamba.", "setup_hint": "Vai a terra (tappetino)." },
+      "en": { "name": "Plank with alternating arm/leg lifts", "description": "Plank with opposite arm/leg lifts.", "setup_hint": "Go to the floor (mat)." }
+    },
+    "incline_pushup": {
+      "icon": "📐",
+      "it": { "name": "Push-up inclinati", "description": "Piegamenti su rialzo per petto e tricipiti.", "setup_hint": "Nessun setup." },
+      "en": { "name": "Incline push-ups", "description": "Push-ups on an elevation for chest and triceps.", "setup_hint": "No setup." }
+    },
+    "russian_twist_weighted": {
+      "icon": "🪨",
+      "it": { "name": "Russian twist (con carico)", "description": "Rotazioni con peso, arco controllato e core attivo.", "setup_hint": "Prendi un peso leggero." },
+      "en": { "name": "Russian twist (weighted)", "description": "Rotations with load, controlled arc and active core.", "setup_hint": "Grab a light weight." }
+    },
+    "superman_band": {
+      "icon": "🦸‍♂️",
+      "it": { "name": "Superman con miniband caviglie", "description": "Estensioni prone con elastico alle caviglie.", "setup_hint": "Metti la miniband alle caviglie (cambia posizione)." },
+      "en": { "name": "Superman with ankle miniband", "description": "Prone extensions with miniband at ankles.", "setup_hint": "Set miniband at ankles (change position)." }
+    },
+    "glute_bridge_1g": {
+      "icon": "🦵",
+      "it": { "name": "Glute bridge a 1 gamba", "description": "Ponte unilaterale, bacino in bolla, spinta sul tallone.", "setup_hint": "Sdraiati supino (cambia posizione)." },
+      "en": { "name": "Single-leg glute bridge", "description": "Unilateral bridge, level pelvis, drive through heel.", "setup_hint": "Lie on your back (change position)." }
+    },
+    "nhe_push": {
+      "icon": "🦌",
+      "it": { "name": "Nordic hamstring eccentrico + push-up assistito", "description": "Discesa lenta con caviglie ancorate; risalita aiutata.", "setup_hint": "Trova un punto per fissare le caviglie." },
+      "en": { "name": "Nordic hamstring (eccentric) + assisted push-up", "description": "Slow descent with ankles anchored; assisted return.", "setup_hint": "Find a place to anchor your ankles." }
+    },
+
+    "neck_lat_r": {
+      "icon": "🙇",
+      "it": { "name": "Allungamento collo laterale — destro", "description": "Inclinazione laterale per distendere il trapezio superiore.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Neck lateral stretch — right", "description": "Lateral tilt to stretch upper trapezius.", "setup_hint": "Stay standing." }
+    },
+    "neck_lat_l": {
+      "icon": "🙇",
+      "it": { "name": "Allungamento collo laterale — sinistro", "description": "Inclinazione laterale per distendere il trapezio superiore.", "setup_hint": "Rimani in piedi." },
+      "en": { "name": "Neck lateral stretch — left", "description": "Lateral tilt to stretch upper trapezius.", "setup_hint": "Stay standing." }
+    },
+    "pec_door": {
+      "icon": "🚪",
+      "it": { "name": "Pettorali su porta", "description": "Stretch pettorale con avambraccio sul telaio della porta.", "setup_hint": "Trova un telaio della porta." },
+      "en": { "name": "Doorway pec stretch", "description": "Pec stretch with forearm on doorframe.", "setup_hint": "Find a doorframe." }
+    },
+    "child_pose": {
+      "icon": "🧘",
+      "it": { "name": "Child pose", "description": "Posizione del bambino per rilassare schiena e spalle.", "setup_hint": "Vai a terra (tappetino)." },
+      "en": { "name": "Child’s pose", "description": "Child’s pose to relax back and shoulders.", "setup_hint": "Go to the floor (mat)." }
+    },
+    "quad_r": {
+      "icon": "🦵",
+      "it": { "name": "Quadricipite — destro", "description": "Presa del collo del piede e ginocchia vicine.", "setup_hint": "Rimani in piedi vicino a un appoggio." },
+      "en": { "name": "Quadriceps — right", "description": "Grab ankle, keep knees close together.", "setup_hint": "Stay standing near support." }
+    },
+    "quad_l": {
+      "icon": "🦵",
+      "it": { "name": "Quadricipite — sinistro", "description": "Presa del collo del piede e ginocchia vicine.", "setup_hint": "Rimani in piedi vicino a un appoggio." },
+      "en": { "name": "Quadriceps — left", "description": "Grab ankle, keep knees close together.", "setup_hint": "Stay standing near support." }
+    },
+    "calf_r": {
+      "icon": "🧱",
+      "it": { "name": "Polpaccio al muro — destro", "description": "Spingi contro il muro mantenendo il tallone a terra.", "setup_hint": "Vai al muro." },
+      "en": { "name": "Calf stretch on wall — right", "description": "Press into wall keeping heel on the floor.", "setup_hint": "Go to the wall." }
+    },
+    "calf_l": {
+      "icon": "🧱",
+      "it": { "name": "Polpaccio al muro — sinistro", "description": "Spingi contro il muro mantenendo il tallone a terra.", "setup_hint": "Vai al muro." },
+      "en": { "name": "Calf stretch on wall — left", "description": "Press into wall keeping heel on the floor.", "setup_hint": "Go to the wall." }
+    },
+    "worlds_greatest_stretch": {
+      "icon": "🌍",
+      "it": { "name": "World’s Greatest Stretch", "description": "Affondo profondo con rotazione toracica e cambio lato.", "setup_hint": "Trova un materassino." },
+      "en": { "name": "World’s Greatest Stretch", "description": "Deep lunge with thoracic rotation; switch sides.", "setup_hint": "Find a mat." }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+workout_exercise_sequence_and_time.json
+Scopo: definisce sequenza e tempi (setup/work/rest) di ogni esercizio.
+Mostra al frontend quando: devi far partire countdown, fasi di setup, work, up-next e i rest tra blocchi.
+
+Campi chiave
+schema_version: string.
+
+config
+countdown_s: secondi di pre-start dopo aver premuto start.
+up_next_notice_s: anticipo “Up next…” (sec) globale. l'anticipo con cui il FE avvisa del prossimo esercizio.
+
+block_rest_s: mappa { "<blockId>": seconds } → rest dopo uno specifico blocco.
+
+sequence: ordine dei blocchi (es. ["activation","warmup_standing",...]). is this useful ? 
+
+exercises (lista ordinata):
+n: progressivo (debug/ordinamento).
+id: chiave esercizio (deve esistere nell’i18n).
+block: id blocco (deve esistere nell’i18n).
+work_s: secondi di lavoro.
+setup_s: secondi di setup (rest/preparazione). Questo è un tempo che precede l'esercizio e serve per prepararsi ad eseguitlo. non è tempo di lavoro vivo.
+
+Runtime (frontend)
+Ogni esercizio: Setup (setup_s) → Work (work_s).
+Up-next: mostra a work_end - up_next_notice_s (cue, non dilata i tempi).
+Block rest: se presente in block_rest_s[block], dopo l’ultimo esercizio del blocco.
+
+Gli orari assoluti (start/end) si calcolano runtime sommando setup+work (+rest di blocco).
+
+workout_exercise_text_and_i18n.json
+Scopo: contiene tutti i testi localizzati (UI, nomi, descrizioni, setup_hint) e le icone.
+Mostra al frontend quando: devi rendere etichette UI, nomi esercizi, descrizioni e messaggi di setup.
+
+Campi chiave
+schema_version: string.
+
+languages: array (es. ["it","en"]).
+ui[lang]: titoli, bottoni, messaggi (“Up next:”, congrats, etc.).
+blocks[lang][blockId]: label blocchi.
+exercises[exerciseId]:
+icon: emoji/icona.
+<lang>.name: nome esercizio.
+<lang>.description: descrizione breve (tooltip/scheda).
+<lang>.setup_hint: messaggio da mostrare durante il setup (es. “Vai al muro”, “Prendi pesi medi”).
+
+Risoluzione in UI
+Durante Setup: mostra exercises[id][lang].setup_hint + icon.
+Durante Work: mostra exercises[id][lang].name (+ description se vuoi).
+Up-next: ui[lang].upNext + nextExercise.name.
+
+Etichette blocchi: blocks[lang][blockId].
+
+Contratto tra i due file (quick checklist)
+Ogni exercises[].id del timed deve esistere in exercises dell’i18n.
+
+Ogni exercises[].block e ogni voce di sequence del timed deve esistere in blocks dell’i18n.
+
+Fallback lingua: se lang non presente, usa "en".

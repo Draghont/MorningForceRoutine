@@ -1,0 +1,69 @@
+{
+  "schema_version": "timed-v1",
+  "config": {
+    "countdown_s": 3,
+    "up_next_notice_s": 5,
+    "block_rest_s": {
+      "activation": 15,
+      "warmup_standing": 15,
+      "warmup_floor": 20,
+      "strength_standing": 20,
+      "strength_floor": 15
+    }
+  },
+  "sequence": [
+    "activation",
+    "warmup_standing",
+    "warmup_floor",
+    "strength_standing",
+    "strength_floor",
+    "stretching"
+  ],
+  "exercises": [
+    { "n": 1,  "id": "neck_rot_tilt",        "block": "activation",   "work_s": 300, "setup_s": 10 },
+    { "n": 2,  "id": "shoulder_circ_fw",     "block": "activation",   "work_s": 30, "setup_s": 0 },
+    { "n": 3,  "id": "shoulder_circ_bw",     "block": "activation",   "work_s": 30, "setup_s": 0 },
+    { "n": 4,  "id": "thoracic_twists",      "block": "activation",   "work_s": 30, "setup_s": 0 },
+    { "n": 5,  "id": "hip_circles_cw",       "block": "activation",   "work_s": 30, "setup_s": 0 },
+    { "n": 6,  "id": "hip_circles_ccw",      "block": "activation",   "work_s": 30, "setup_s": 0 },
+    { "n": 7,  "id": "march_in_place",       "block": "activation",   "work_s": 30, "setup_s": 0 },
+    { "n": 8,  "id": "cat_cow",              "block": "activation",   "work_s": 30, "setup_s": 2 },
+
+    { "n": 9,  "id": "mil_press_bw",         "block": "warmup_standing",   "work_s": 30, "setup_s": 2 },
+    { "n": 10, "id": "rev_fly_bw",           "block": "warmup_standing",   "work_s": 30, "setup_s": 0 },
+    { "n": 11, "id": "wall_pushup",          "block": "warmup_standing",   "work_s": 30, "setup_s": 4 },
+    { "n": 12, "id": "hip_hinge_bw",         "block": "warmup_standing",   "work_s": 30, "setup_s": 0 },
+    { "n": 13, "id": "squat_bw",             "block": "warmup_standing",   "work_s": 30, "setup_s": 0 },
+    { "n": 14, "id": "calf_raise_bw",        "block": "warmup_standing",   "work_s": 30, "setup_s": 0 },
+
+    { "n": 15, "id": "plank_front",          "block": "warmup_floor",      "work_s": 30, "setup_s": 3 },
+    { "n": 16, "id": "russian_twist_bw",     "block": "warmup_floor",      "work_s": 30, "setup_s": 5 },
+    { "n": 17, "id": "banded_psoas_march",   "block": "warmup_floor",      "work_s": 30, "setup_s": 10 },
+    { "n": 18, "id": "glute_bridge_bi",      "block": "warmup_floor",      "work_s": 30, "setup_s": 2 },
+    { "n": 19, "id": "sliding_curl_bi",      "block": "warmup_floor",      "work_s": 30, "setup_s": 5 },
+    { "n": 20, "id": "superman_hold",        "block": "warmup_floor",      "work_s": 30, "setup_s": 3 },
+
+    { "n": 21, "id": "mil_press_load",       "block": "strength_standing", "work_s": 30, "setup_s": 10 },
+    { "n": 22, "id": "rev_fly_load",         "block": "strength_standing", "work_s": 30, "setup_s": 5 },
+    { "n": 23, "id": "hip_hinge_load",       "block": "strength_standing", "work_s": 30, "setup_s": 5 },
+    { "n": 24, "id": "squat_load_or_jump",   "block": "strength_standing", "work_s": 30, "setup_s": 10 },
+    { "n": 25, "id": "calf_raise_load",      "block": "strength_standing", "work_s": 30, "setup_s": 5 },
+
+    { "n": 26, "id": "plank_alt",            "block": "strength_floor",    "work_s": 30, "setup_s": 5 },
+    { "n": 27, "id": "incline_pushup",       "block": "strength_floor",    "work_s": 30, "setup_s": 0 },
+    { "n": 28, "id": "russian_twist_weighted","block": "strength_floor",   "work_s": 30, "setup_s": 5 },
+    { "n": 29, "id": "superman_band",        "block": "strength_floor",    "work_s": 30, "setup_s": 2 },
+    { "n": 30, "id": "glute_bridge_1g",      "block": "strength_floor",    "work_s": 30, "setup_s": 2 },
+    { "n": 31, "id": "nhe_push",             "block": "strength_floor",    "work_s": 30, "setup_s": 15 },
+
+    { "n": 32, "id": "neck_lat_r",           "block": "stretching",        "work_s": 30, "setup_s": 0 },
+    { "n": 33, "id": "neck_lat_l",           "block": "stretching",        "work_s": 30, "setup_s": 0 },
+    { "n": 34, "id": "pec_door",             "block": "stretching",        "work_s": 30, "setup_s": 0 },
+    { "n": 35, "id": "child_pose",           "block": "stretching",        "work_s": 30, "setup_s": 0 },
+    { "n": 36, "id": "quad_r",               "block": "stretching",        "work_s": 30, "setup_s": 0 },
+    { "n": 37, "id": "quad_l",               "block": "stretching",        "work_s": 30, "setup_s": 0 },
+    { "n": 38, "id": "calf_r",               "block": "stretching",        "work_s": 30, "setup_s": 0 },
+    { "n": 39, "id": "calf_l",               "block": "stretching",        "work_s": 30, "setup_s": 0 },
+    { "n": 40, "id": "worlds_greatest_stretch","block": "stretching",      "work_s": 30, "setup_s": 2 }
+  ]
+}

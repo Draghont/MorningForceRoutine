@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Passeggiata della Forza – Week 1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+    <div class="header-top">
+      <div>
+        <h1 class="title" id="mainTitle">Passeggiata della Forza — Week 1</h1>
+        <p class="subtitle" id="mainSubtitle">Routine mattutina veloce: accensione → riscaldamento → potenziamento → stretching</p>
+      </div>
+      <div class="language-selector">
+        <button class="lang-btn active" data-lang="it" title="Italiano">🇮🇹</button>
+        <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
+      </div>
+    </div>
+    
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-info">
+      <span class="progress-label">Progresso Totale</span>
+      <span class="progress-percentage" id="progressPercentage">0%</span>
+    </div>
+    
+    <div class="controls">
+      <button class="btn" id="playBtn">
+        <span>▶</span>
+        <span>Inizia</span>
+      </button>
+      <button class="btn btn-secondary" id="pauseBtn" disabled>
+        <span>⏸</span>
+        <span>Pausa</span>
+      </button>
+      <button class="btn btn-secondary" id="resetBtn">
+        <span>⟲</span>
+        <span>Reset</span>
+      </button>
+      <div class="timer-display" id="timerDisplay">00:00 / 20:30</div>
+      
+      <div class="exercise-progress-compact" id="exerciseProgressContainer" style="display:none;">
+        <div class="exercise-progress-label" id="exerciseProgressLabel">Esercizio Corrente</div>
+        <div class="exercise-progress-bar-compact">
+          <div class="exercise-progress-fill" id="exerciseProgressFill"></div>
+          <div class="fifty-percent-marker-compact">
+            <div class="marker-line-compact"></div>
+          </div>
+        </div>
+        <div class="exercise-progress-percentage-compact" id="exerciseProgressPercentage">0%</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mobile-tabs">
+    <button class="tab-btn active" onclick="WorkoutTimer.switchTab('exercise')">Esercizio</button>
+    <button class="tab-btn" onclick="WorkoutTimer.switchTab('schedule')">Programma</button>
+  </div>
+  
+  <div class="main-content">
+    <div class="current-exercise active" id="currentExercise">
+      <div class="exercise-icon" id="exerciseIcon">🚀</div>
+      <h2 class="exercise-name" id="exerciseName">Premi Inizia per cominciare</h2>
+      <p class="exercise-block" id="exerciseBlock"></p>
+      <p class="exercise-description" id="exerciseDescription">Il tuo allenamento di 20 minuti ti aspetta!</p>
+      <div class="up-next" id="upNext" style="display:none;">
+        <strong>Prossimo:</strong> <span id="nextExercise"></span>
+      </div>
+    </div>
+    
+    <div class="workout-table" id="workoutTable">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Minuto</th>
+              <th>Blocco</th>
+              <th>Esercizio</th>
+              <th>Tempo</th>
+            </tr>
+          </thead>
+          <tbody id="exerciseTableBody">
+            <!-- Verrà popolato dal JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <script src="workout-config.js"></script>
+  <script src="workout-translations.js"></script>
+  <script src="workout-timer.js"></script>
+</body>
+</html>
