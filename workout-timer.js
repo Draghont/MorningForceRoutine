@@ -1069,14 +1069,24 @@ class WorkoutTimer {
 
   updateButtonStates() {
     const ui = this.config.i18n.ui[this.state.currentLang];
-    
+    // Play button visibilità: solo se non running o in pausa
     if (this.dom.playBtn) {
-      this.dom.playBtn.style.display = (!this.state.isRunning || this.state.isPaused) ? 'block' : 'none';
+      if (!this.state.isRunning || this.state.isPaused) {
+        this.dom.playBtn.style.display = 'block';
+      } else {
+        this.dom.playBtn.style.display = 'none';
+      }
     }
+    // Pause button visibilità: solo se running e non in pausa
     if (this.dom.pauseBtn) {
-      this.dom.pauseBtn.style.display = (this.state.isRunning && !this.state.isPaused) ? 'block' : 'none';
+      if (this.state.isRunning && !this.state.isPaused) {
+        this.dom.pauseBtn.style.display = 'block';
+        this.dom.pauseBtn.removeAttribute('disabled');
+      } else {
+        this.dom.pauseBtn.style.display = 'none';
+        this.dom.pauseBtn.setAttribute('disabled', '');
+      }
     }
-
     this.updateButtonText(this.dom.playBtn, this.state.isPaused ? ui.resumeBtn : ui.startBtn);
   }
 
