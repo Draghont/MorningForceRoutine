@@ -888,6 +888,19 @@ class WorkoutTimer {
       return;
     }
 
+    // Handle block rest phase - now integrated with main timer for perfect sync
+    if (this.state.currentPhase === 'block_rest') {
+      this.state.blockRestRemaining--;
+      this.safeUpdateTextContent(this.dom.exerciseName, `Block Rest: ${this.state.blockRestRemaining}s`);
+      
+      if (this.state.blockRestRemaining <= 0) {
+        this.state.currentPhase = 'exercise';
+        this.state.exerciseElapsedSeconds = 0;
+        this.startCurrentExercise();
+      }
+      return;
+    }
+
     // Handle exercise phases
     if (this.state.currentPhase === 'exercise') {
       const currentExercise = this.processedExercises[this.state.currentExerciseIndex];
@@ -946,22 +959,13 @@ class WorkoutTimer {
   startBlockRest(restSeconds) {
     this.state.currentPhase = 'block_rest';
     this.state.blockRestRemaining = restSeconds;
+    this.state.exerciseElapsedSeconds = 0;
     
     const ui = this.config.i18n.ui[this.state.currentLang];
     this.safeUpdateTextContent(this.dom.exerciseName, `Block Rest: ${restSeconds}s`);
     this.safeUpdateTextContent(this.dom.exerciseDescription, 'Prepare for next block');
     
-    // Use a separate interval for block rest countdown
-    const restTimer = setInterval(() => {
-      this.state.blockRestRemaining--;
-      this.safeUpdateTextContent(this.dom.exerciseName, `Block Rest: ${this.state.blockRestRemaining}s`);
-      
-      if (this.state.blockRestRemaining <= 0) {
-        clearInterval(restTimer);
-        this.state.currentPhase = 'exercise';
-        this.startCurrentExercise();
-      }
-    }, 1000);
+    // Block rest is now handled in main tick() method for perfect timing sync
   }
 
   showUpNext() {
