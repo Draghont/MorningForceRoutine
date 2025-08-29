@@ -100,6 +100,219 @@ class ConfigurationManager {
   }
 }
 
+class AudioManager {
+  constructor(audioContext, config = {}) {
+    this.audioContext = audioContext;
+    this.config = {
+      enable_midpoint_beep: config.enable_midpoint_beep ?? true,
+      setup_loop_volume: config.setup_loop_volume ?? 0.35,
+      rest_loop_volume: config.rest_loop_volume ?? 0.30,
+      cue_volume: config.cue_volume ?? 0.80,
+      fade_ms: {
+        setup: config.fade_ms?.setup ?? 200,
+        rest: config.fade_ms?.rest ?? 350
+      }
+    };
+    
+    this.activeLoops = {
+      setup: null,
+      rest: null
+    };
+  }
+
+  createOscillator(frequency, type = 'sine', volume = 0.8, duration = 0.3) {
+    if (!this.audioContext) return null;
+
+    try {
+      const oscillator = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(this.audioContext.destination);
+      
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+      
+      gainNode.gain.setValueAtTime(volume, this.audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
+      
+      return { oscillator, gainNode };
+    } catch (e) {
+      console.log('Error creating oscillator:', e);
+      return null;
+    }
+  }
+
+  playExerciseStart() {
+    const sound = this.createOscillator(800, 'sine', this.config.cue_volume * 0.7, 0.3);
+    if (sound) {
+      sound.oscillator.start(this.audioContext.currentTime);
+      sound.oscillator.stop(this.audioContext.currentTime + 0.3);
+    }
+  }
+
+  playExerciseMidpoint() {
+    if (!this.config.enable_midpoint_beep) return;
+    
+    const sound = this.createOscillator(1200, 'triangle', this.config.cue_volume * 0.6, 0.15);
+    if (sound) {
+      sound.oscillator.start(this.audioContext.currentTime);
+      sound.oscillator.stop(this.audioContext.currentTime + 0.15);
+    }
+  }
+
+  playExerciseEnd() {
+    if (!this.audioContext) return;
+
+    try {
+      const oscillator = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(this.audioContext.destination);
+      
+      oscillator.frequency.setValueAtTime(800, this.audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(400, this.audioContext.currentTime + 0.5);
+      oscillator.type = 'sine';
+      
+      gainNode.gain.setValueAtTime(this.config.cue_volume, this.audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5);
+      
+      oscillator.start(this.audioContext.currentTime);
+      oscillator.stop(this.audioContext.currentTime + 0.5);
+    } catch (e) {
+      console.log('Error playing exercise end:', e);
+    }
+  }
+
+  playNotification() {
+    const sound = this.createOscillator(600, 'sine', this.config.cue_volume, 0.1);
+    if (sound) {
+      sound.oscillator.start(this.audioContext.currentTime);
+      sound.oscillator.stop(this.audioContext.currentTime + 0.1);
+    }
+  }
+
+  playCountdownBeep() {
+    const sound = this.createOscillator(800, 'sine', this.config.cue_volume * 0.8, 0.2);
+    if (sound) {
+      sound.oscillator.start(this.audioContext.currentTime);
+      sound.oscillator.stop(this.audioContext.currentTime + 0.2);
+    }
+  }
+
+  startSetupLoop() {
+    this.stopSetupLoop(); // Ensure no duplicate loops
+    
+    if (!this.audioContext) return;
+
+    try {
+      const oscillator = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(this.audioContext.destination);
+      
+      oscillator.frequency.value = 300;
+      oscillator.type = 'sine';
+      
+      // Fade in with much lower volume
+      gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(this.config.setup_loop_volume * 0.3, 
+        this.audioContext.currentTime + this.config.fade_ms.setup / 1000);
+      
+      oscillator.start(this.audioContext.currentTime);
+      
+      this.activeLoops.setup = { oscillator, gainNode };
+    } catch (e) {
+      console.log('Error starting setup loop:', e);
+    }
+  }
+
+  stopSetupLoop() {
+    if (this.activeLoops.setup) {
+      try {
+        const { oscillator, gainNode } = this.activeLoops.setup;
+        const fadeTime = this.config.fade_ms.setup / 1000;
+        
+        gainNode.gain.linearRampToValueAtTime(0, this.audioContext.currentTime + fadeTime);
+        oscillator.stop(this.audioContext.currentTime + fadeTime);
+      } catch (e) {
+        console.log('Error stopping setup loop:', e);
+      }
+      this.activeLoops.setup = null;
+    }
+  }
+
+  startBlockRestLoop() {
+    this.stopBlockRestLoop(); // Ensure no duplicate loops
+    
+    if (!this.audioContext) return;
+
+    try {
+      const oscillator = this.audioContext.createOscillator();
+      const gainNode = this.audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(this.audioContext.destination);
+      
+      oscillator.frequency.value = 150;
+      oscillator.type = 'sine';
+      
+      // Fade in
+      gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+      gainNode.gain.linearRampToValueAtTime(this.config.rest_loop_volume, 
+        this.audioContext.currentTime + this.config.fade_ms.rest / 1000);
+      
+      oscillator.start(this.audioContext.currentTime);
+      
+      this.activeLoops.rest = { oscillator, gainNode };
+    } catch (e) {
+      console.log('Error starting block rest loop:', e);
+    }
+  }
+
+  stopBlockRestLoop() {
+    if (this.activeLoops.rest) {
+      try {
+        const { oscillator, gainNode } = this.activeLoops.rest;
+        const fadeTime = this.config.fade_ms.rest / 1000;
+        
+        gainNode.gain.linearRampToValueAtTime(0, this.audioContext.currentTime + fadeTime);
+        oscillator.stop(this.audioContext.currentTime + fadeTime);
+      } catch (e) {
+        console.log('Error stopping block rest loop:', e);
+      }
+      this.activeLoops.rest = null;
+    }
+  }
+
+  pauseAllLoops() {
+    // For pause functionality - mute all active loops
+    if (this.activeLoops.setup?.gainNode) {
+      this.activeLoops.setup.gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+    }
+    if (this.activeLoops.rest?.gainNode) {
+      this.activeLoops.rest.gainNode.gain.setValueAtTime(0, this.audioContext.currentTime);
+    }
+  }
+
+  resumeAllLoops() {
+    // Restore loop volumes
+    if (this.activeLoops.setup?.gainNode) {
+      this.activeLoops.setup.gainNode.gain.setValueAtTime(this.config.setup_loop_volume, this.audioContext.currentTime);
+    }
+    if (this.activeLoops.rest?.gainNode) {
+      this.activeLoops.rest.gainNode.gain.setValueAtTime(this.config.rest_loop_volume, this.audioContext.currentTime);
+    }
+  }
+
+  cleanup() {
+    this.stopSetupLoop();
+    this.stopBlockRestLoop();
+  }
+}
+
 class WorkoutTimer {
   static BLOCK_COLORS = {
     'activation': '#4ade80',
@@ -122,6 +335,16 @@ class WorkoutTimer {
           warmup_floor: 20,
           strength_standing: 20,
           strength_floor: 15
+        }
+      },
+      audio: {
+        enable_midpoint_beep: true,
+        setup_loop_volume: 0.35,
+        rest_loop_volume: 0.30,
+        cue_volume: 0.80,
+        fade_ms: {
+          setup: 200,
+          rest: 350
         }
       },
       sequence: [
@@ -461,7 +684,9 @@ class WorkoutTimer {
       exerciseElapsedSeconds: 0,
       currentPhase: 'ready', // ready, countdown, setup, work, rest, complete
       timer: null,
-      audioContext: null
+      audioContext: null,
+      audioManager: null,
+      upNextShown: false
     };
     
     this.dom = this.initializeDOM();
@@ -658,33 +883,15 @@ class WorkoutTimer {
   initAudio() {
     try {
       this.state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      
+      // Initialize AudioManager with config from timing data
+      const audioConfig = this.config?.timing?.audio || {};
+      this.state.audioManager = new AudioManager(this.state.audioContext, audioConfig);
     } catch (e) {
       console.log('Audio context not supported');
     }
   }
   
-  playBeep() {
-    if (!this.state.audioContext) return;
-    
-    try {
-      const oscillator = this.state.audioContext.createOscillator();
-      const gainNode = this.state.audioContext.createGain();
-      
-      oscillator.connect(gainNode);
-      gainNode.connect(this.state.audioContext.destination);
-      
-      oscillator.frequency.value = 800;
-      oscillator.type = 'sine';
-      
-      gainNode.gain.setValueAtTime(0.3, this.state.audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, this.state.audioContext.currentTime + 0.3);
-      
-      oscillator.start(this.state.audioContext.currentTime);
-      oscillator.stop(this.state.audioContext.currentTime + 0.3);
-    } catch (e) {
-      console.log('Error playing beep:', e);
-    }
-  }
 
   setLanguage(lang) {
     if (!this.config.i18n.languages.includes(lang)) {
@@ -824,6 +1031,11 @@ class WorkoutTimer {
     this.state.isRunning = true;
     this.state.isPaused = false;
     
+    // Resume audio loops if resuming from pause
+    if (this.state.audioManager) {
+      this.state.audioManager.resumeAllLoops();
+    }
+    
     this.updateButtonStates();
     this.startTimer();
   }
@@ -833,6 +1045,12 @@ class WorkoutTimer {
     
     this.state.isPaused = true;
     this.stopTimer();
+    
+    // Pause all audio loops
+    if (this.state.audioManager) {
+      this.state.audioManager.pauseAllLoops();
+    }
+    
     this.updateButtonStates();
   }
 
@@ -845,6 +1063,14 @@ class WorkoutTimer {
     this.state.currentPhase = 'ready';
     
     this.stopTimer();
+    
+    // Clean up all audio
+    if (this.state.audioManager) {
+      this.state.audioManager.cleanup();
+    }
+    
+    // Reset upNext state
+    this.hideUpNext();
     this.updateDisplay();
     this.updateButtonStates();
   }
@@ -894,6 +1120,11 @@ class WorkoutTimer {
       this.safeUpdateTextContent(this.dom.exerciseName, `Block Rest: ${this.state.blockRestRemaining}s`);
       
       if (this.state.blockRestRemaining <= 0) {
+        // Stop block rest audio
+        if (this.state.audioManager) {
+          this.state.audioManager.stopBlockRestLoop();
+        }
+        
         this.state.currentPhase = 'exercise';
         this.state.exerciseElapsedSeconds = 0;
         this.startCurrentExercise();
@@ -905,6 +1136,26 @@ class WorkoutTimer {
     if (this.state.currentPhase === 'exercise') {
       const currentExercise = this.processedExercises[this.state.currentExerciseIndex];
       if (!currentExercise) return;
+
+      // Audio management for exercise phases
+      if (this.state.audioManager) {
+        // Start setup loop when exercise begins (only once per exercise)
+        if (this.state.exerciseElapsedSeconds === 1 && currentExercise.setup_s > 0) {
+          this.state.audioManager.startSetupLoop();
+        }
+        
+        // Transition from setup to work phase
+        if (this.state.exerciseElapsedSeconds === currentExercise.setup_s && currentExercise.setup_s > 0) {
+          this.state.audioManager.stopSetupLoop();
+          this.state.audioManager.playExerciseStart();
+        }
+        
+        // Midpoint beep during work phase
+        const timeInWork = this.state.exerciseElapsedSeconds - currentExercise.setup_s;
+        if (timeInWork > 0 && timeInWork === Math.floor(currentExercise.work_s / 2)) {
+          this.state.audioManager.playExerciseMidpoint();
+        }
+      }
 
       // Check if we should show "up next" notification
       const timeInWork = this.state.exerciseElapsedSeconds - currentExercise.setup_s;
@@ -926,11 +1177,25 @@ class WorkoutTimer {
     if (!currentExercise) return;
 
     console.log(`Starting exercise ${currentExercise.n}: ${currentExercise.name}`);
+    
+    // Reset upNext state for new exercise
+    this.hideUpNext();
+    
     this.updateExerciseDisplay(currentExercise);
-    this.playBeep();
+    
+    // Audio cues
+    if (this.state.audioManager) {
+      this.state.audioManager.stopSetupLoop(); // Stop any active setup loop
+      this.state.audioManager.playExerciseStart();
+    }
   }
 
   completeCurrentExercise() {
+    // Play exercise end sound
+    if (this.state.audioManager) {
+      this.state.audioManager.playExerciseEnd();
+    }
+    
     this.state.currentExerciseIndex++;
     this.state.exerciseElapsedSeconds = 0;
 
@@ -965,10 +1230,18 @@ class WorkoutTimer {
     this.safeUpdateTextContent(this.dom.exerciseName, `Block Rest: ${restSeconds}s`);
     this.safeUpdateTextContent(this.dom.exerciseDescription, 'Prepare for next block');
     
+    // Audio for block rest
+    if (this.state.audioManager) {
+      this.state.audioManager.startBlockRestLoop();
+    }
+    
     // Block rest is now handled in main tick() method for perfect timing sync
   }
 
   showUpNext() {
+    // Only show if we haven't already shown for this exercise
+    if (this.state.upNextShown) return;
+    
     const nextIndex = this.state.currentExerciseIndex + 1;
     if (nextIndex < this.processedExercises.length) {
       const nextExercise = this.processedExercises[nextIndex];
@@ -977,8 +1250,21 @@ class WorkoutTimer {
       if (this.dom.upNext) {
         this.dom.upNext.innerHTML = `<strong>${ui.upNext}</strong> ${this.escapeHtml(nextExercise.name)}`;
         this.dom.upNext.style.display = 'block';
+        this.state.upNextShown = true;
+        
+        // Audio notification
+        if (this.state.audioManager) {
+          this.state.audioManager.playNotification();
+        }
       }
     }
+  }
+
+  hideUpNext() {
+    if (this.dom.upNext) {
+      this.dom.upNext.style.display = 'none';
+    }
+    this.state.upNextShown = false;
   }
 
   updateExerciseDisplay(exercise) {
@@ -1004,16 +1290,17 @@ class WorkoutTimer {
       }
     }
 
-    // Hide up next display
-    if (this.dom.upNext) {
-      this.dom.upNext.style.display = 'none';
-    }
   }
 
   completeWorkout() {
     this.state.isRunning = false;
     this.state.currentPhase = 'complete';
     this.stopTimer();
+    
+    // Clean up all audio loops
+    if (this.state.audioManager) {
+      this.state.audioManager.cleanup();
+    }
     
     const ui = this.config.i18n.ui[this.state.currentLang];
     this.safeUpdateTextContent(this.dom.exerciseName, ui.congratsTitle);
@@ -1122,11 +1409,15 @@ class WorkoutTimer {
       count--;
       if (count > 0) {
         countdownNumber.textContent = count;
-        this.playBeep();
+        if (this.state.audioManager) {
+          this.state.audioManager.playCountdownBeep();
+        }
       } else {
         const ui = this.config.i18n.ui[this.state.currentLang];
         countdownNumber.textContent = ui.goText;
-        this.playBeep();
+        if (this.state.audioManager) {
+          this.state.audioManager.playCountdownBeep();
+        }
         setTimeout(() => {
           if (overlay.parentNode) {
             overlay.parentNode.removeChild(overlay);

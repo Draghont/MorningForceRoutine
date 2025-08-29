@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Test</title>
+</head>
+<body>
+    <h2>Audio System Test</h2>
+    <div>
+        <button onclick="testStart()">Test Exercise Start</button>
+        <button onclick="testMid()">Test Midpoint</button>
+        <button onclick="testEnd()">Test Exercise End</button>
+        <button onclick="testNotification()">Test Notification</button>
+        <br><br>
+        <button onclick="testSetupLoop()">Start Setup Loop</button>
+        <button onclick="stopSetupLoop()">Stop Setup Loop</button>
+        <button onclick="testRestLoop()">Start Rest Loop</button>
+        <button onclick="stopRestLoop()">Stop Rest Loop</button>
+    </div>
+    
+    <script src="workout-timer.js"></script>
+    <script>
+        let audioContext;
+        let audioManager;
+        
+        // Initialize audio on first click
+        document.addEventListener('click', function initAudio() {
+            if (!audioContext) {
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const testConfig = {
+                        enable_midpoint_beep: true,
+                        setup_loop_volume: 0.35,
+                        rest_loop_volume: 0.30,
+                        cue_volume: 0.80,
+                        fade_ms: { setup: 200, rest: 350 }
+                    };
+                    audioManager = new AudioManager(audioContext, testConfig);
+                    console.log('Audio initialized');
+                    document.removeEventListener('click', initAudio);
+                } catch (e) {
+                    console.error('Audio initialization failed:', e);
+                }
+            }
+        }, { once: false });
+        
+        function testStart() { audioManager?.playExerciseStart(); }
+        function testMid() { audioManager?.playExerciseMidpoint(); }
+        function testEnd() { audioManager?.playExerciseEnd(); }
+        function testNotification() { audioManager?.playNotification(); }
+        function testSetupLoop() { audioManager?.startSetupLoop(); }
+        function stopSetupLoop() { audioManager?.stopSetupLoop(); }
+        function testRestLoop() { audioManager?.startBlockRestLoop(); }
+        function stopRestLoop() { audioManager?.stopBlockRestLoop(); }
+    </script>
+</body>
+</html>

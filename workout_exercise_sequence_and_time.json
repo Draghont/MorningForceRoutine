@@ -11,6 +11,16 @@
       "strength_floor": 15
     }
   },
+  "audio": {
+    "enable_midpoint_beep": true,
+    "setup_loop_volume": 0.35,
+    "rest_loop_volume": 0.30,
+    "cue_volume": 0.80,
+    "fade_ms": {
+      "setup": 200,
+      "rest": 350
+    }
+  },
   "sequence": [
     "activation",
     "warmup_standing",
